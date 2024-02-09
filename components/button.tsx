@@ -15,6 +15,8 @@ const Button = ({ children, className, onClick }: Props) => {
     const audio = audioRef.current as HTMLAudioElement;
 
     const playAudio = () => {
+      // Change the volume to 1
+      audio.volume = 1;
       audio.play();
     };
 
@@ -29,7 +31,7 @@ const Button = ({ children, className, onClick }: Props) => {
   return (
     <button
       className={cn(
-        "text-pink-light border-[3px] border-pink-light p-3 rounded-full bg-white hover:bg-pink-light hover:text-white transition-all hover:border-white hover:scale-110 active:scale-90",
+        "rounded-full border-[3px] border-pink-light bg-white p-3 text-pink-light transition-all hover:scale-110 hover:border-white hover:bg-pink-light hover:text-white active:scale-90",
         className,
       )}
       onClick={() => {
