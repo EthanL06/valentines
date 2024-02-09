@@ -7,10 +7,22 @@ import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import ReactHowler from "react-howler";
+import { useReward } from "react-rewards";
 
 export default function Home() {
   const [phraseIndex, setPhraseIndex] = useState(0);
-  const [hasHoveredOverNo, setHasHoveredOverNo] = useState(false);
+  const { reward, isAnimating } = useReward("rewardId", "emoji", {
+    emoji: ["❤️", "💖", "💕", "💞", "💓", "💗", "💝", "💘", "💟", "❣️"],
+    startVelocity: 30,
+    angle: 90,
+    spread: 350,
+    elementCount: 50,
+    lifetime: 500,
+    elementSize: 50,
+    position: "fixed",
+  });
+  const [onYesClick, setOnYesClick] = useState(false);
+
   const noRef = useRef<HTMLDivElement>(null);
 
   const phrases = [
@@ -106,7 +118,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="min-h-screen flex items-center justify-center flex-col relative overflow-y-hidden">
+    <div className="relative flex min-h-screen flex-col items-center justify-center overflow-y-hidden">
       <StartScreen />
       <ReactHowler
         src="/music/cupid.mp3"
@@ -120,12 +132,12 @@ export default function Home() {
         </p>
         <div
           className={cn(
-            "w-96 h-96 relative rounded-lg overflow-hidden bg-white",
+            "relative h-96 w-96 overflow-hidden rounded-lg bg-white",
           )}
         >
           {phraseIndex < phrases.length - 1 ? (
             <Image
-              className="rounded-lg border-4 border-pink-light w-full h-full object-contain"
+              className="h-full w-full rounded-lg border-4 border-pink-light object-contain"
               src={determineGIF(phraseIndex)}
               priority
               alt="gif"
@@ -135,8 +147,8 @@ export default function Home() {
             />
           ) : (
             <Image
-              className="rounded-lg border-4 border-pink-light w-full h-full object-contain"
-              src="/images/heart.jpg"
+              className="h-full w-full rounded-lg border-4 border-pink-light object-contain"
+              src={onYesClick ? "/gifs/yes.gif" : determineGIF(phraseIndex)}
               priority
               alt="gif"
               width={500}
@@ -145,11 +157,11 @@ export default function Home() {
           )}
         </div>
       </div>
-      <div className="text-4xl mt-2 mb-1">
+      <div className="mb-1 mt-2 text-4xl">
         <AnimatePresence mode="wait">
           <motion.p
             key={phraseIndex}
-            className="text-center type max-w-[400px] mx-auto"
+            className="type mx-auto max-w-[400px] text-center"
             style={
               {
                 "--n": `${phrases[phraseIndex].length}`,
@@ -160,14 +172,14 @@ export default function Home() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.15 }}
           >
-            {phrases[phraseIndex]}
+            {onYesClick ? "HOORAY!!!" : phrases[phraseIndex]}
           </motion.p>
         </AnimatePresence>
       </div>
 
       {phraseIndex < phrases.length - 1 ? (
         <Button
-          className="hover:scale-100 mt-1"
+          className="mt-1 hover:scale-100"
           onClick={() => setPhraseIndex((phraseIndex + 1) % phrases.length)}
         >
           <svg
@@ -176,7 +188,7 @@ export default function Home() {
             viewBox="0 0 24 24"
             strokeWidth="3"
             stroke="currentColor"
-            className="w-6 h-6"
+            className="h-6 w-6"
           >
             <path
               strokeLinecap="round"
@@ -187,22 +199,36 @@ export default function Home() {
         </Button>
       ) : (
         <div className="flex gap-x-2">
-          <Button className="rounded-lg px-6 py-[6px] text-pink-dark border-pink-dark hover:scale-100 hover:bg-pink-dark text-4xl">
-            YES
+          <Button
+            onClick={() => {
+              setOnYesClick(true);
+              reward();
+            }}
+            className="rounded-lg border-pink-dark px-6 py-[6px] text-4xl text-pink-dark hover:scale-100 hover:bg-pink-dark"
+          >
+            {onYesClick ? "click me..." : "yes"}
           </Button>
 
           <div
             onClick={moveToRandomPosition}
             onMouseOver={moveToRandomPosition}
-            className="relative transition-all"
+            className={cn(
+              "relative transition-all",
+              onYesClick ? "hidden" : "visible",
+            )}
             ref={noRef}
           >
-            <Button className="rounded-lg px-6 py-[6px] text-pink-light border-pink-light hover:scale-100 hover:bg-pink-light text-4xl">
+            <Button className="rounded-lg border-pink-light px-6 py-[6px] text-4xl text-pink-light hover:scale-100 hover:bg-pink-light">
               no
             </Button>
           </div>
         </div>
       )}
+
+      <span
+        className="fixed -top-[10rem] left-1/2 -translate-x-1/2 transform"
+        id="rewardId"
+      />
     </div>
   );
 }
