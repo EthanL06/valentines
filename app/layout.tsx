@@ -8,8 +8,7 @@ const patrickHand = Patrick_Hand({
 });
 
 export const metadata: Metadata = {
-  title: "for my love...",
-  description: "open me!",
+  title: "open me!",
 };
 
 export default function RootLayout({

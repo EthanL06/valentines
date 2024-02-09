@@ -15,8 +15,8 @@ export default function Home() {
 
   const phrases = [
     "HI BABY!!!",
-    "look what i made for you!! :D",
-    "do you still regret dating a cs major (yes you do)",
+    "look what i made for you!!",
+    "still regret dating a cs major? (yes you do)",
     "i hope you're enjoying the music too!! 🎶",
     "go mocha! go mocha! (he groovin fr)",
     "makes me just wanna dance...",
@@ -63,8 +63,6 @@ export default function Home() {
         return "/gifs/hug-rub.gif";
       case readingGIFBounds.includes(phraseIndex):
         return "/gifs/reading.gif";
-      case flowersBounds.includes(phraseIndex):
-        return "/gifs/heart.gif";
       default:
         return "/gifs/bouncing.gif";
     }
@@ -125,15 +123,26 @@ export default function Home() {
             "w-96 h-96 relative rounded-lg overflow-hidden bg-white",
           )}
         >
-          <Image
-            className="rounded-lg border-4 border-pink-light w-full h-full object-contain"
-            src={determineGIF(phraseIndex)}
-            priority
-            alt="gif"
-            fill={true}
-            width={0}
-            height={0}
-          />
+          {phraseIndex < phrases.length - 1 ? (
+            <Image
+              className="rounded-lg border-4 border-pink-light w-full h-full object-contain"
+              src={determineGIF(phraseIndex)}
+              priority
+              alt="gif"
+              fill={true}
+              width={0}
+              height={0}
+            />
+          ) : (
+            <Image
+              className="rounded-lg border-4 border-pink-light w-full h-full object-contain"
+              src="/images/heart.jpg"
+              priority
+              alt="gif"
+              width={500}
+              height={500}
+            />
+          )}
         </div>
       </div>
       <div className="text-4xl mt-2 mb-1">
