@@ -2,32 +2,40 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+@layer base {
+  html,
+  body {
+    @apply bg-background text-black;
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-}
-
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
+  /* Add this to your CSS file */
+  .typewriter {
+    overflow: hidden;
+    border-right: 0.15em solid pink; /* Cursor */
+    white-space: nowrap;
+    margin: 0 auto;
+    padding-bottom: 4px;
+    width: 0;
+    animation:
+      typewriter 1.5s steps(30, end) 1s 1 normal both,
+      blink-caret 1s step-end infinite;
+    animation-delay: 0s, 1s; /* Delay the start of the blink-caret animation */
+  }
+
+  @keyframes typewriter {
+    from {
+      width: 0;
+    }
+    to {
+      width: 100%;
+    }
+  }
+
+  @keyframes blink-caret {
+    50% {
+      border-color: transparent;
+    }
   }
 }
