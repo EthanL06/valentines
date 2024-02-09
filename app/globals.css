@@ -14,7 +14,6 @@
   .typewriter {
     overflow: hidden;
     border-right: 0.15em solid pink; /* Cursor */
-    white-space: nowrap;
     margin: 0 auto;
     padding-bottom: 4px;
     width: 0;

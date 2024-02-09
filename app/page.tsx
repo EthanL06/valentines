@@ -140,7 +140,12 @@ export default function Home() {
         <AnimatePresence mode="wait">
           <motion.p
             key={phraseIndex}
-            className="text-center typewriter"
+            className="text-center type max-w-[400px] mx-auto"
+            style={
+              {
+                "--n": `${phrases[phraseIndex].length}`,
+              } as React.CSSProperties
+            }
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
