@@ -18,8 +18,7 @@
     "react-dom": "^18",
     "react-howler": "^5.2.0",
     "react-rewards": "^2.0.4",
-    "tailwind-merge": "^2.2.1",
-    "typewriter-effect": "^2.21.0"
+    "tailwind-merge": "^2.2.1"
   },
   "devDependencies": {
     "@types/node": "^20",

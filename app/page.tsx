@@ -57,13 +57,13 @@ export default function Home() {
     "VALENTINE?",
   ];
 
+  // The indices of the phrases that correspond to the GIFs
   const danceGIFBounds = [3, 4, 5];
   const groupDanceGIFBounds = [6, 7];
   const hugRubGIFBounds = [8, 9];
   const readingGIFBounds = [
     11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27,
   ];
-  const flowersBounds = [28];
 
   const determineGIF = (phraseIndex: number) => {
     switch (true) {

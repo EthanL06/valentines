@@ -8,33 +8,3 @@
     @apply bg-background text-black;
   }
 }
-
-@layer utilities {
-  /* Add this to your CSS file */
-  .typewriter {
-    overflow: hidden;
-    border-right: 0.15em solid pink; /* Cursor */
-    margin: 0 auto;
-    padding-bottom: 4px;
-    width: 0;
-    animation:
-      typewriter 1.5s steps(30, end) 1s 1 normal both,
-      blink-caret 1s step-end infinite;
-    animation-delay: 0s, 1s; /* Delay the start of the blink-caret animation */
-  }
-
-  @keyframes typewriter {
-    from {
-      width: 0;
-    }
-    to {
-      width: 100%;
-    }
-  }
-
-  @keyframes blink-caret {
-    50% {
-      border-color: transparent;
-    }
-  }
-}
